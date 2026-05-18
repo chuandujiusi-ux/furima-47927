@@ -10,12 +10,11 @@
 #   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
 #
 default: &default
-  adapter: mysql2
-  encoding: utf8
+  adapter: postgresql
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password:
-  socket: /tmp/mysql.sock
 
 development:
   <<: *default
@@ -35,7 +34,7 @@ test:
 # Instead, provide the password or a full connection URL as an environment
 # variable when you boot the app. For example:
 #
-#   DATABASE_URL="mysql2://myuser:mypass@localhost/somedatabase"
+#   DATABASE_URL="postgresql://myuser:mypass@localhost/somedatabase"
 #
 # If the connection URL is provided in the special DATABASE_URL environment
 # variable, Rails will automatically merge its configuration values on top of
@@ -50,6 +49,4 @@ test:
 #
 production:
   <<: *default
-  database: furima_47927_production
-  username: furima_47927
-  password: <%= ENV["FURIMA_47927_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
