@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :basic_auth, except: [:index]
+  before_action :basic_auth
 
   private
 
