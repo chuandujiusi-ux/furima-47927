@@ -88,6 +88,6 @@ Things you may want to cover:
 | purchase      | references | null: false,foreign_key: true |
 
 ### Association
-- belongs_to :purchases
+- belongs_to :purchase
 
 
