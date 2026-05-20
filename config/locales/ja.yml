@@ -1,0 +1,50 @@
+ja:
+  date:
+    formats:
+      default: "%Y/%m/%d"
+      short: "%m/%d"
+      long: "%Y年%m月%d日(%a)"
+    order:
+      - :year
+      - :month
+      - :day
+
+  errors:
+    messages:
+      blank: "を入力してください"
+      taken: "はすでに存在します"
+      invalid: "は不正な値です" 
+
+  activerecord:
+    models:
+      user: "ユーザー"
+    attributes:
+      user:
+        nickname: "ニックネーム"
+        email: "メールアドレス"
+        password: "パスワード"
+        birthday: "生年月日"
+        last_name: "お名前(名字)"
+        first_name: "お名前(名前)"
+        last_name_kana: "Last name kana" 
+        first_name_kana: "First name kana" 
+
+    errors:
+      models:
+        user:
+          attributes:
+            last_name_kana:
+              invalid: "は全角カタカナで入力してください"
+            first_name_kana:
+              invalid: "は全角カタカナで入力してください"
+
+  devise:
+    failure:
+      invalid: "メールアドレスまたはパスワードが違います。"
+      user:
+        invalid: "メールアドレスまたはパスワードが違います。"
+
+    sessions:
+      signed_out: "ログアウトしました。"
+      user:
+        signed_out: "ログアウトしました。"
