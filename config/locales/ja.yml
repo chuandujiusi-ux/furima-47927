@@ -10,14 +10,21 @@ ja:
       - :day
 
   errors:
+    format: "%{attribute}%{message}"
     messages:
       blank: "を入力してください"
       taken: "はすでに存在します"
       invalid: "は不正な値です" 
+      not_an_integer: "は整数で入力してください"
+      greater_than_or_equal_to: "は%{count}以上の値にしてください"
+      less_than_or_equal_to: "は%{count}以下の値にしてください"
+      not_a_number: "は数値で入力してください"
+      other_than: "を入力してください"
 
   activerecord:
     models:
       user: "ユーザー"
+      item: "商品"
     attributes:
       user:
         nickname: "ニックネーム"
@@ -26,8 +33,18 @@ ja:
         birthday: "生年月日"
         last_name: "お名前(名字)"
         first_name: "お名前(名前)"
-        last_name_kana: "Last name kana" 
-        first_name_kana: "First name kana" 
+        last_name_kana: "お名前カナ(名字)" 
+        first_name_kana: "お名前カナ(名前)" 
+      item:
+        image: "商品画像"
+        name: "商品名"
+        introduction: "商品の説明"
+        category_id: "カテゴリー"
+        item_condition_id: "商品の状態"
+        postage_payer_id: "配送料の負担"
+        prefecture_id: "発送元の地域"
+        preparation_day_id: "発送までの日数"
+        price: "価格"
 
     errors:
       models:
@@ -37,14 +54,30 @@ ja:
               invalid: "は全角カタカナで入力してください"
             first_name_kana:
               invalid: "は全角カタカナで入力してください"
+      # 💡 Railsが探しに行くすべての階層の「numericality」の中に「other_than」を配置しました！
+      messages:
+        numericality:
+          invalid: "は数値で入力してください"
+          not_a_number: "は数値で入力してください"
+          not_an_integer: "は整数で入力してください"
+          other_than: "を入力してください"
 
-  devise:
-    failure:
-      invalid: "メールアドレスまたはパスワードが違います。"
-      user:
-        invalid: "メールアドレスまたはパスワードが違います。"
-
-    sessions:
-      signed_out: "ログアウトしました。"
-      user:
-        signed_out: "ログアウトしました。"
+  activemodel:
+    attributes:
+      item:
+        image: "商品画像"
+        name: "商品名"
+        introduction: "商品の説明"
+        category_id: "カテゴリー"
+        item_condition_id: "商品の状態"
+        postage_payer_id: "配送料の負担"
+        prefecture_id: "発送元の地域"
+        preparation_day_id: "発送までの日数"
+        price: "価格"
+    errors:
+      messages:
+        numericality:
+          invalid: "は数値で入力してください"
+          not_a_number: "は数値で入力してください"
+          not_an_integer: "は整数で入力してください"
+          other_than: "を入力してください"
