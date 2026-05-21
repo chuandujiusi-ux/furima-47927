@@ -79,3 +79,12 @@ Style/FrozenStringLiteralComment:
 # メソッドパラメータ名の最小文字数を設定
 Naming/MethodParameterName:
  MinNameLength: 1
+
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'Gemfile'
