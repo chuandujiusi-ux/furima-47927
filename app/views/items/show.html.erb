@@ -7,31 +7,30 @@
       <%= @item.name %>
     </h2>
     <div class="item-img-content">
-      <%= image_tag @item.image, class: "item-box-img" if @item.image.attached? %>
-      
-      <%# 【※後半の実装用】商品が売れていればsold outを表示 %>
-      <%# <div class="sold-out"> %>
-      <% #   <span>Sold Out!!</span> %>
-      <%# </div> %>
+      <%= image_tag @item.image, class: "item-img" if @item.image.attached? %>
     </div>
     <div class="item-price-box">
       <span class="item-price">
-        ¥ <%= @item.price.toLocaleString(:ja) rescue @item.price %>
+        ¥ <%= @item.price %>
       </span>
       <span class="item-postage">
         <%= @item.postage_payer.name %>
       </span>
     </div>
 
-    <%# ログインしているユーザーと出品しているユーザーが同じ時の処理 %>
-    <% if user_signed_in? && current_user.id == @item.user_id %>
-      <%= link_to "商品の編集", "#", class: "item-red-btn" %>
-      <p class="or-text">or</p>
-      <%= link_to "削除", "#", class: "item-destroy" %>
-    <% else %>
-      <%# 商品が売れていない場合は購入画面へのボタンを表示する %>
-      <%= link_to "購入画面に進む", "#", class: "item-red-btn" %>
+    <%# 💡 【条件分岐】ログイン状態によって表示するボタンを切り替える %>
+    <% if user_signed_in? %>
+      <% if current_user.id == @item.user_id %>
+        <%# ログイン中 かつ 出品した本人の場合のみ「編集」「削除」を表示 %>
+        <%= link_to "商品の編集", "#", class: "item-red-btn" %>
+        <p class="or-text">or</p>
+        <%= link_to "削除", "#", class: "item-destroy" %>
+      <% else %>
+        <%# ログイン中 かつ 自分が出品していない商品の場合のみ「購入画面に進む」を表示 %>
+        <%= link_to "購入画面に進む", "#", class: "item-blue-btn" %>
+      <% end %>
     <% end %>
+    <%# ※ログアウト状態の場合は、上記のボタンは一切表示されません %>
 
     <div class="item-explain-box">
       <span><%= @item.introduction %></span>
@@ -59,18 +58,18 @@
           <td class="detail-value"><%= @item.prefecture.name %></td>
         </tr>
         <tr>
-          <th class="detail-item">発送までの日数</th>
+          <th class="detail-item">発送日の目安</th>
           <td class="detail-value"><%= @item.preparation_day.name %></td>
         </tr>
       </tbody>
     </table>
     <div class="option">
       <div class="favorite-btn">
-        <%= image_tag "star.png" ,class:"favorite-star-icon" ,id:"star-icon" ,size:"20x20" %>
+        <%= image_tag "star.png" ,class:"favorite-star-icon" ,size:"20x20" %>
         <span>お気に入り 0</span>
       </div>
       <div class="report-btn">
-        <%= image_tag "flag.png" ,class:"report-flag-icon" ,id:"flag-icon" ,size:"20x20" %>
+        <%= image_tag "flag.png" ,class:"report-flag-icon" ,size:"20x20" %>
         <span>不適切な商品の通報</span>
       </div>
     </div>
@@ -83,10 +82,10 @@
       <p class="comment-warn">
         相手のことを考え丁寧なコメントを心がけましょう。
         <br>
-        不適切な言葉遣いなどは利用制限や退会処分となることがあります。
+        不快な言葉遣いなどは利用制限や退会処分となることがあります。
       </p>
       <button type="submit" class="comment-btn">
-        <%= image_tag "comment.png" ,class:"comment-flag-icon" ,id:"comment-icon" ,size:"20x25" %>
+        <%= image_tag "comment.png" ,class:"comment-flag-icon" ,size:"20x25" %>
         <span>コメントする<span>
       </button>
     </form>
