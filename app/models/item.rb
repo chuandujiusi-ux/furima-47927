@@ -5,24 +5,25 @@ class Item < ApplicationRecord
   belongs_to :postage_payer
   belongs_to :prefecture
   belongs_to :preparation_day
-
   belongs_to :user
+
+  # ⭕ コントローラーの NameError を一発で消し去るための必須アソシエーション
+  has_one :order
+
   has_one_attached :image
 
-  validates :image,              presence: true
-  validates :name,               presence: true
-  validates :introduction,       presence: true
-  validates :price,              presence: true,
-                                 numericality: {
-                                   only_integer: true,
-                                   greater_than_or_equal_to: 300,
-                                   less_than_or_equal_to: 9_999_999,
-                                   allow_blank: true
-                                 }
+  with_options presence: true do
+    validates :image
+    validates :name
+    validates :introduction
+    validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
+  end
 
-  validates :category_id,        numericality: { other_than: 1 }
-  validates :item_condition_id,  numericality: { other_than: 1 }
-  validates :postage_payer_id,   numericality: { other_than: 1 }
-  validates :prefecture_id,      numericality: { other_than: 1 }
-  validates :preparation_day_id, numericality: { other_than: 1 }
+  with_options numericality: { other_than: 1, message: "can't be blank" } do
+    validates :category_id
+    validates :item_condition_id
+    validates :postage_payer_id
+    validates :prefecture_id
+    validates :preparation_day_id
+  end
 end

@@ -1,39 +1,37 @@
 const pay = () => {
-  const paymentFormData = document.getElementById("payment-form-data");
-  if (!paymentFormData) return; 
+  const paymentForm = document.getElementById('payment-form-data');
+  if (!paymentForm) return;
   
-  const publicKey = paymentFormData.dataset.publicKey;
-  const payjp = Payjp(publicKey); 
-  
-  const form = document.getElementById('charge-form');
+  const publicKey = paymentForm.dataset.publicKey;
+  const payjp = Payjp(publicKey);
+  const elements = payjp.elements();
 
+  const numberElement = elements.create('cardNumber', {placeholder: 'カード番号'});
+  const expiryElement = elements.create('cardExpiry', {placeholder: '有効期限'});
+  const cvcElement = elements.create('cardCvc', {placeholder: 'セキュリティコード'});
+
+  numberElement.mount('#number-form');
+  expiryElement.mount('#expiry-form');
+  cvcElement.mount('#cvc-form');
+
+  const form = document.getElementById('charge-form');
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const formData = new FormData(form);
-    const card = {
-      number: formData.get("order_address[number]"),
-      cvc: formData.get("order_address[cvc]"),
-      exp_month: formData.get("order_address[exp_month]"),
-      exp_year: `20${formData.get("order_address[exp_year]")}`, 
-    };
-
-    payjp.createToken(card, (status, response) => {
-      if (status === 200) {
+    payjp.createToken(numberElement).then(function (response) {
+      if (response.error) {
+        form.submit();
+      } else {
         const token = response.id;
-        const tokenObj = `<input value=${token} name='token' type="hidden">`;
-        form.insertAdjacentHTML("beforeend", tokenObj);
+        const renderDom = document.getElementById("charge-form");
+        const tokenObj = `<input value=${token} name='order_address[token]' type="hidden">`;
+        renderDom.insertAdjacentHTML("beforeend", tokenObj);
+        
+        form.submit();
       }
-
-      document.getElementById("card-number").removeAttribute("name");
-      document.getElementById("card-cvc").removeAttribute("name");
-      document.getElementById("card-exp-month").removeAttribute("name");
-      document.getElementById("card-exp-year").removeAttribute("name");
-
-      form.submit();
     });
   });
 };
 
+// Rails 7の画面遷移（Turbo）に対応させるための記述です
 window.addEventListener("turbo:load", pay);
-window.addEventListener("DOMContentLoaded", pay);
