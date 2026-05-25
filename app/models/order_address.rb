@@ -13,7 +13,7 @@ class OrderAddress
     validates :token
   end
 
-  validates :prefecture_id, numericality: { other_than: 1, message: " can't be blank" }
+  validates :prefecture_id, numericality: { other_than: 1 }
 
   # 3. 形式（フォーマット）のバリデーション（空欄の時はスキップさせる）
   validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: ' is invalid. Include hyphen(-)' }, allow_blank: true

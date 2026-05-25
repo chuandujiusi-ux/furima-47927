@@ -54,7 +54,6 @@ ja:
               invalid: "は全角カタカナで入力してください"
             first_name_kana:
               invalid: "は全角カタカナで入力してください"
-      # 💡 Railsが探しに行くすべての階層の「numericality」の中に「other_than」を配置しました！
       messages:
         numericality:
           invalid: "は数値で入力してください"
@@ -74,6 +73,18 @@ ja:
         prefecture_id: "発送元の地域"
         preparation_day_id: "発送までの日数"
         price: "価格"
+        
+      # 👇 今回追加したFormオブジェクト用の翻訳です
+      # ※クラス名が「OrderForm」の場合は order_form に書き換えてください。
+      order_address:
+        token: "クレジットカード情報"
+        postal_code: "郵便番号"
+        prefecture_id: "都道府県"
+        city: "市区町村"
+        addresses: "番地"
+        building: "建物名"
+        phone_number: "電話番号"
+
     errors:
       messages:
         numericality:
