@@ -8,12 +8,16 @@ class OrderAddress
     validates :item_id
     validates :city
     validates :addresses
-    validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: 'is invalid. Include hyphen(-)' }
-    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'is invalid. Input only numbers' }
+    validates :postal_code
+    validates :phone_number
     validates :token
   end
 
-  validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
+  validates :prefecture_id, numericality: { other_than: 1, message: " can't be blank" }
+
+  # 3. 形式（フォーマット）のバリデーション（空欄の時はスキップさせる）
+  validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: ' is invalid. Include hyphen(-)' }, allow_blank: true
+  validates :phone_number, format: { with: /\A\d{10,11}\z/, message: ' is invalid. Input only numbers' }, allow_blank: true
 
   def save
     ActiveRecord::Base.transaction do
