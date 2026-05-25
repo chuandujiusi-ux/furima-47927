@@ -8,6 +8,13 @@
     </h2>
     <div class="item-img-content">
       <%= image_tag @item.image, class: "item-img" if @item.image.attached? %>
+      
+      <%# 商品が売却済みの場合は、Sold Outを表示する %>
+      <% if @item.order.present? %>
+        <div class="sold-out">
+          <span>Sold Out!!</span>
+        </div>
+      <% end %>
     </div>
     <div class="item-price-box">
       <span class="item-price">
@@ -18,7 +25,8 @@
       </span>
     </div>
 
-    <% if user_signed_in? %>
+    <%# ログイン中かつ、商品がまだ売れていない場合のみボタンを表示する %>
+    <% if user_signed_in? && @item.order.nil? %>
       <% if current_user.id == @item.user_id %>
         <%= link_to "商品の編集", edit_item_path(@item), method: :get, class: "item-red-btn" %>
         <p class="or-text">or</p>
