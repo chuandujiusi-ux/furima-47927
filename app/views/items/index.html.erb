@@ -133,11 +133,9 @@
             <%= link_to item_path(item) do %>
             <div class='item-img-content'>
               <%= image_tag item.image, class: "item-img" if item.image.attached? %>
-              <% if item.order.present? %>
-                <div class='sold-out'>
-                   <span>Sold Out!!</span>
-                </div>
-              <% end %>
+              <%# 売り切れ機能を作るまで、一旦コメントアウトして隠しておきます %>
+              <%# if item.order.present? %>
+                <%# end %>
             </div>
             <div class='item-info'>
               <h3 class='item-name'>
