@@ -68,7 +68,14 @@ group :development do
 end
 
 gem 'devise'
-gem 'pg'
+
+group :development, :test do
+  gem 'mysql2'
+end
+
+group :production do
+  gem 'pg'
+end
 
 group :development, :test do
   gem 'factory_bot_rails'
