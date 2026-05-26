@@ -9,12 +9,9 @@
     <div class="item-img-content">
       <%= image_tag @item.image, class: "item-img" if @item.image.attached? %>
       
-      <%# 商品が売却済みの場合は、Sold Outを表示する %>
-      <% if @item.order.present? %>
-        <div class="sold-out">
-          <span>Sold Out!!</span>
-        </div>
-      <% end %>
+      <%# 🚨修正箇所1：購入機能ができるまで一時的に隠します %>
+      <%# if @item.order.present? %>
+        <%# end %>
     </div>
     <div class="item-price-box">
       <span class="item-price">
@@ -25,14 +22,15 @@
       </span>
     </div>
 
-    <%# ログイン中かつ、商品がまだ売れていない場合のみボタンを表示する %>
-    <% if user_signed_in? && @item.order.nil? %>
+    <%# 🚨修正箇所2：エラーの原因となる「&& @item.order.nil?」を一時的に外します %>
+    <% if user_signed_in? %>
       <% if current_user.id == @item.user_id %>
         <%= link_to "商品の編集", edit_item_path(@item), method: :get, class: "item-red-btn" %>
         <p class="or-text">or</p>
         <%= link_to "削除", item_path(@item), data: { turbo_method: :delete }, class: "item-destroy" %>
       <% else %>
-        <%= link_to "購入画面に進む", item_orders_path(@item), class: "item-red-btn" %>
+        <%# 購入機能（orders）ができるまで、リンク先を一旦 # にしておきます %>
+        <%= link_to "購入画面に進む", "#", class: "item-red-btn" %>
       <% end %>
     <% end %>
 
