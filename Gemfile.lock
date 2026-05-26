@@ -176,8 +176,6 @@ GEM
       prism (~> 1.5)
     msgpack (1.8.0)
     mutex_m (0.3.0)
-    mysql2 (0.5.7)
-      bigdecimal
     net-imap (0.6.4)
       date
       net-protocol
@@ -363,7 +361,6 @@ DEPENDENCIES
   faker
   importmap-rails
   jbuilder
-  mysql2 (~> 0.5)
   payjp
   pg
   puma (>= 5.0)
