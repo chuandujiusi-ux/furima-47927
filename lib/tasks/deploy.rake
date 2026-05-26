@@ -1,9 +1,9 @@
 namespace :deploy do
   desc 'Run migrations on deploy'
   task :migrate do
-    puts 'Resetting database...'
-    # 一度データベースを完全に空にしてからマイグレーションをやり直す命令です
-    system('bundle exec rails db:migrate:reset')
+    puts 'Running safe database migrations...'
+    # データベースは削除せず、テーブルの作成・更新だけを確実に実行させます
+    system('bundle exec rails db:migrate')
   end
 end
 
