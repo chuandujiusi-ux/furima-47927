@@ -1,40 +1,22 @@
 const priceInput = () => {
   const priceInput = document.getElementById("item-price");
-  
-  // 出品画面ではない時は、これ以降の処理を行わない（エラー防止）
-  if (!priceInput) return;
+  if (!priceInput) return; // 出品・編集ページ以外では動かさない
 
-  // 金額を計算して画面に表示する共通の処理
-  const calculatePrice = () => {
+  priceInput.addEventListener("input", () => {
     const inputValue = priceInput.value;
     const addTaxDom = document.getElementById("add-tax-price");
     const profitDom = document.getElementById("profit");
 
-    // 入力値が空の場合は、表示を空にする
-    if (!inputValue) {
-      addTaxDom.innerHTML = "";
-      profitDom.innerHTML = "";
-      return;
-    }
-
-    // 入力された金額の10%を計算（Math.floorで小数点以下を切り捨て）
+    // 入力された金額から、手数料（10%）と利益を計算
     const taxPrice = Math.floor(inputValue * 0.1);
-    // 販売利益を計算
-    const profitPrice = Math.floor(inputValue - taxPrice);
+    const profitPrice = inputValue - taxPrice;
 
-    // 計算結果をそれぞれの場所に表示させる（カンマ区切り）
-    addTaxDom.innerHTML = taxPrice.toLocaleString();
-    profitDom.innerHTML = profitPrice.toLocaleString();
-  };
-
-  // 1. ユーザーが数値を入力した時に計算を実行する
-  priceInput.addEventListener("input", calculatePrice);
-
-  // 2. ページを開いた時点で最初から数値が入っている場合も、その場で計算を実行する
-  if (priceInput.value) {
-    calculatePrice();
-  }
+    // 画面の「円」の前に数値を表示させる
+    addTaxDom.innerHTML = taxPrice;
+    profitDom.innerHTML = profitPrice;
+  });
 };
 
+// Rails 7の画面遷移（Turbo）でも正常に動かすための記述
 window.addEventListener("turbo:load", priceInput);
 window.addEventListener("turbo:render", priceInput);
