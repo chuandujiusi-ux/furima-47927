@@ -86,3 +86,7 @@ end
 gem 'active_hash'
 gem 'payjp'
 gem 'dotenv-rails', groups: [:development, :test]
+
+group :production do
+  gem 'unicorn', '6.1.0'
+end
