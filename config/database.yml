@@ -61,3 +61,11 @@ test:
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
+
+production:
+  <<: *default
+  adapter: mysql2
+  database: furima_47927_production
+  username: root
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: /var/lib/mysql/mysql.sock
